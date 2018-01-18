@@ -1,0 +1,1 @@
+export { default as StringText} from './values.js';
