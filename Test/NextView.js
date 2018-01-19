@@ -68,7 +68,7 @@ class NextView extends Component {
                     typeShow="top"
                     imageUrisOn={null}
                     imageUrisOff={null}
-                    childViews={[TestModal,TestCompleList,TestAddressList,TestCarouselPage,App]}
+                    childViews={[TestModal,TestCompleList,TestAddressList,App]}
                     />
             </View>
         );
@@ -105,7 +105,7 @@ class MainApp extends Component{
                 navigator={this.props.navigator}
                 index={0}
                 typeShow="bottom"
-                childViews={[NextView,TestPickImg,TestAddressList,TestCarouselPage]}
+                childViews={[NextView,TestPickImg,TestAddressList,App]}
                 />
         )
     }

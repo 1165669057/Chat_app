@@ -26,6 +26,9 @@ import {
     ComplexList,
     } from './UIlib';
 var NativeModule=require('./NativeModule/NativeUtil');
+import {
+    GuidePage,
+    }from './Page';
 export default class Chat_app extends Component {
     constructor(props) {
         super(props);
@@ -156,16 +159,17 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
-
 class StartApp extends Component{
+
     render(){
        return (
            <MainNavigator
-               Obj={Chat_app}
+               Obj={GuidePage}
                />
        )
     }
 }
-AppRegistry.registerComponent('TestActivity', () => NextView);
 AppRegistry.registerComponent('Chat_app', () => StartApp);
+AppRegistry.registerComponent('TestActivity', () => NextView);
+
 

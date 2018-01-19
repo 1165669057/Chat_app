@@ -31,7 +31,7 @@ import {
 var {height, width} = Dimensions.get('window');
 var NativeImagepicker=require('../NativeModule/imagepicker');
 var NativeUtil=require('../NativeModule/NativeUtil');
-var ScrollViewEx = require('../NativeUi/scrollviewex');
+//var ScrollViewEx = require('../NativeUi/scrollviewex');
 import{
     StringText
     } from '../resource';

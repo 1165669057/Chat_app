@@ -11,3 +11,4 @@ export {default as CarouselPage} from './CarouselPage';
 export {default as ComplexList } from './ComplexList';
 export {default as ModalDialog } from './ModalDialog';
 export {default as RecyClerView } from './RecyClerView';
+export {default as ScrollViewPage } from './ScrollViewPage';

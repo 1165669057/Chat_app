@@ -7,6 +7,7 @@ import React, { Component,PropTypes } from 'react';
 import {
     AppRegistry,
     StyleSheet,
+    InteractionManager,
     Text,
     View,
     ToastAndroid
@@ -14,8 +15,10 @@ import {
 import FontSize from '../fontSize';
 import Color from '../color';
 import { Navigator } from 'react-native-deprecated-custom-components';
+require("react-native-deprecated-custom-components");
 var TopTitle=require('./TopTitle');
 var BottomTitle=require('./BottomTitle');
+var ChildView=require("./ChildView");
 export default class React_native extends Component {
     static propTypes = {
         navTitles:PropTypes.any, //标题数组
@@ -37,6 +40,7 @@ export default class React_native extends Component {
     constructor(props) {
         super(props);
         this.code=[];
+        this.childlist=[];
         if(this.props.navTitles.length!==this.props.childViews.length){
             for(let i=0;i<this.props.navTitles.length;i++){
                 if(i<this.props.childViews.length){
@@ -53,7 +57,6 @@ export default class React_native extends Component {
         this.state = {}
     }
     componentWillReceiveProps() {
-
     }
     componentWillMount() {
 
@@ -76,14 +79,29 @@ export default class React_native extends Component {
         }
     }
     onTabDidFocus(route){
+        if (!this.childlist[route.change].state.showStu) {
+           // InteractionManager.runAfterInteractions(()=> {
+                this.childlist[route.change].setState({
+                    showStu: true
+                });
+           // })
+        }
     }
     renderScene(route, navigator){
         this._navigator =navigator;
         var Component=this.props.childViews[route.change];
-        return <Component navigator={this.props.navigator} />
+        return <ChildView ref={(obj)=>{this.childlist.push(obj)}} childView={Component}/>
+       //return  <Component navigator={this.props.navigator} />
     }
     clickIndex(index){
-         this._navigator.jumpTo(this.code[index]);
+        this._navigator.jumpTo(this.code[index]);
+        /*if(!this.childlist[index].state.showStu) {
+            InteractionManager.runAfterInteractions(()=>{
+                this.childlist[index].setState({
+                    showStu: true
+                });
+            })
+        }*/
     }
     render() {
         return (

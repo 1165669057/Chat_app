@@ -38,10 +38,10 @@ export default class React_native extends Component {
             navigator.pop();
             return true;
         }else{
-            BackHandler.exitApp();
+           // BackHandler.exitApp();
 
         }
-        return false;
+        return false
     }
     componentDidMount() {
         BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid.bind(this));

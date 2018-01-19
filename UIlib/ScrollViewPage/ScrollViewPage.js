@@ -19,39 +19,38 @@ import {
     Image
     } from 'react-native';
 var {height, width} = Dimensions.get('window');
+var TitlesTopView=require('./TitlesTopView');
 export default class React_native extends Component {
     static propTypes = {
-        childsImgs:PropTypes.any,
-        height:PropTypes.any,
-        type:PropTypes.any,
+        titles:PropTypes.any,
+        heightTopView:PropTypes.any,
         auto:PropTypes.any,
         pointBottom:PropTypes.any,
         scrollPage:PropTypes.any,
+        pageViews:PropTypes.any,
     }
     static defaultProps = {
-       height:200,
-        childsImgs:["yellow","red","blue"],
-        type:"view",
+        heightTopView:40,
+        titles:["yellow","red","blue"],
+        pageViews:[],
         auto:false,
         pointBottom:12,
         scrollPage:()=>{}
     }
+
     constructor(props) {
         super(props);
         this.state = {
-             images:this.props.childsImgs,
-             length:3,
+            images:this.props.titles,
+            length:3,
             isNeedRun:true,
             offsetX:0,
         }
         this._index=0;
+        this.childPage=[];
     }
     componentWillReceiveProps(nextProps) {
-           /*if(this.state.images!==this.props.childsImgs){
-               this.setState({
-                   images:nextProps.childsImgs
-               })
-           }*/
+
     }
     componentWillMount() {
         var obj=this;
@@ -66,27 +65,16 @@ export default class React_native extends Component {
             onPanResponderTerminate:this._handlePanResponderEnd2.bind(obj),
         });
     }
-
     componentDidMount(){
-        /*this.setState({
-            images:this.props.childsImgs
-        })*/
-         this.timer=setInterval(()=>{
-              if(this.props.auto) {
-                  if (this._index == this.props.childsImgs.length) {
-                      this._index = 0;
-                  }
-                  this._scrollView.scrollTo({x: this._index * width, y: 0, animated: true})
-                  this._index++;
-              }
-          },2000);
+        this.setState({
+            images:this.props.titles
+        })
     }
     componentWillUnmount() {
-        clearInterval(this.timer);
+        this.childPage=[];
     }
     //当用户单击的时候
     _handleStartShouldSetPanResponder(e,gestureState){
-        //AppUtils.showToast("aa");
         return true;
     }
     _handleMoveShouldSetPanResponder(e,gestureState){
@@ -112,75 +100,59 @@ export default class React_native extends Component {
     _onScroll(e){
         this._contentOffsetX = e.nativeEvent.contentOffset.x;//this._scrollView.contentOffset;
         this._index = Math.round(this._contentOffsetX / width);
-        this.props.scrollPage(this._index);
-        var plotting_scale=this._contentOffsetX / width;//得到视图比例
-        let curValue=13*plotting_scale;
-            if(this._contentOffsetX>(this.props.childsImgs.length-1)*width+width/2){
-                this._scrollView.scrollTo({x:0,y:0,animated:true})
-                curValue=0;
-            }
-        this.setState({
+        this.props.scrollPage(this._index,this.childPage[this._index]);
+        var plotting_scale=parseFloat(this._contentOffsetX / width);//得到视图比例
+        let curValue=(width/3)*plotting_scale;
+        if(this._contentOffsetX>(this.props.titles.length-1)*width+width/2){
+            //this._scrollView.scrollTo({x:0,y:0,animated:true})
+            //curValue=0;
+        }
+        this.titlesTop.setOffsetX(plotting_scale, this._index);
+        /*this.titlesTop.setState({
             offsetX: curValue,
-        });
+        });*/
     }
     setImages(){
-        let images = this.props.childsImgs.map((value,i) => {
-            if(this.props.type=="view"){
-                return (
-                    <TouchableHighlight
-                        underlayColor={"#0000005f"}
-                        key={i}
-                        onPress={()=>{}}>
-                        <View
-                            style={{width:width,height:this.props.height}}>
-                        </View>
-                    </TouchableHighlight>);
+        let images = this.props.titles.map((value,i) => {
+            if(!this.props.pageViews[i]){
+                this.props.pageViews[i]=View;
             }
+            var Page=this.props.pageViews[i];
             return (
-                <TouchableHighlight
-                    underlayColor={"#00000000"}
-                    key={i}
-                    onPress={()=>{}}>
-                    <Image
-                        source={value.uri?{uri:value.uri}:value}
-                        style={{width:width,height:this.props.height}}>
-                    </Image>
-                </TouchableHighlight>);});
-       return images;
+                    <View key={i} style={{width:width,backgroundColor:value,flex:1}}>
+                         <Page ref={(obj)=>{this.childPage[i]=obj}}/>
+                    </View>
+               );
+        });
+        return images;
     }
-    point(){
-        let points=this.props.childsImgs.map((value,i)=>{
-            return(
-               <View key={i} style={styles.pointsView}>
-               </View>
-            )
-        })
-        return points
-    }
+
     render() {
         return (
             <View style={styles.container}>
-                <View style={{height:this.props.height,backgroundColor:"#cccccc"}}>
-                <ScrollView
-                    pagingEnabled={true}
-                    horizontal={true}
-                    style={[styles.scroll_v,{backgroundColor:this.state.lastColor,}]}
-                    showsHorizontalScrollIndicator={false}
-                    showsVerticalScrollIndicator={false}
-                    ref={(scrollView) => { this._scrollView = scrollView;}}
-                    onScroll={this._onScroll.bind(this)}
-                    >
-                    <View style={{flexDirection:'row', marginRight:width}}>
-                        {this.setImages()}
-                    </View>
-                 </ScrollView>
-                    <View style={[styles.smallPoint,{bottom:this.props.pointBottom}]}>
+                   <TitlesTopView
+                       titles={this.props.titles}
+                       heightTopView={this.props.heightTopView}
+                       ref={(obj)=>{
+                        this.titlesTop=obj;
+                      }}
+                      clickTitle={(index)=>{
+                         this._scrollView.scrollTo({x:width*index,y:0,animated:true})
+                      }}
+                       />
+                    <ScrollView
+                        pagingEnabled={true}
+                        horizontal={true}
+                        style={[styles.scroll_v]}
+                        showsHorizontalScrollIndicator={false}
+                        showsVerticalScrollIndicator={false}
+                        ref={(scrollView) => { this._scrollView = scrollView;}}
+                        onScroll={this._onScroll.bind(this)}
+                        >
                         <View style={{flexDirection:'row',}}>
-                            {this.point()}
-                            <View  style={[styles.pointsViewOn,{left:this.state.offsetX}]}/>
-                       </View>
-                    </View>
-                </View>
+                            {this.setImages()}
+                        </View>
+                    </ScrollView>
             </View>
         );
     }
@@ -189,7 +161,8 @@ export default class React_native extends Component {
 const styles = StyleSheet.create({
     scroll_v:{
         width:width,
-        height:20,
+        //height:20,
+        flex:1,
     },
     pointsViewOn:{
         height:8,
@@ -222,8 +195,8 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-       //justifyContent: 'center',
-       // alignItems: 'center',
+        //justifyContent: 'center',
+        // alignItems: 'center',
         backgroundColor: '#F5FCFF',
     },
     welcome: {

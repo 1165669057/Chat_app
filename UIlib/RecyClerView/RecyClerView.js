@@ -127,7 +127,7 @@ var propTypes={
 			  onScroll={this.props.onScroll}
 			  onScrollEndDrag={this.props.onScrollEndDrag}
 			  keyboardDismissMode={"on-drag"} 
-			  keyboardShouldPersistTaps={true}
+
 			  dataSource={this.state.dataSource}
 			  contentContainerStyle={
 				sty

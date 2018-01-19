@@ -14,6 +14,18 @@ export default {
            index:obj.props.index+1,
        });
     },
+    replacePush:function(obj,enterComponent,params){
+        if(params){
+        }else{
+            params={ }
+        }
+        params.navigator=obj.props.navigator;
+        obj.props.navigator.replace({
+            component:enterComponent,
+            params:params,
+            index:obj.props.index+1,
+        });
+    },
     popOver:function(obj,enterComponent,params){
         try{
             if(obj.props.navigator){
