@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
 
@@ -30,12 +31,11 @@ import javax.annotation.Nullable;
 /**
  * Base Activity for React Native applications.
  */
-public abstract class ImitationReactActivity extends Activity
+public abstract class ImitationReactActivity extends FragmentActivity
         implements DefaultHardwareBackBtnHandler, PermissionAwareActivity {
     private Bundle mBundle;
     final public static int BT_MULTII_IMAGE_PICKER = 2;
     final public static int REQUEST_CODE_RN_PERMISSIONS = 12;
-
     private final ImitationReactActivityDelegate mDelegate;
     protected ImitationReactActivity() {
         mDelegate = createReactActivityDelegate();

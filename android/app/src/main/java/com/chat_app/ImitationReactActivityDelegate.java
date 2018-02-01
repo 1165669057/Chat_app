@@ -59,7 +59,6 @@ import javax.annotation.Nullable;
  * class doesn't implement {@link ReactApplication}.
  */
 public class ImitationReactActivityDelegate {
-
     private final int REQUEST_OVERLAY_PERMISSION_CODE = 1111;
     private static final String REDBOX_PERMISSION_GRANTED_MESSAGE =
             "Overlay permissions have been granted.";

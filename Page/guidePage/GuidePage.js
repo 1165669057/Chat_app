@@ -38,12 +38,11 @@ export default class React_native extends Component {
             ]
     }
     componentWillReceiveProps(){
-        
+
     }
     componentWillMount() {
 
     }
-
     componentDidMount() {
 
     }
@@ -51,10 +50,10 @@ export default class React_native extends Component {
 
     }
     fastLogin(){
-        Action.replacePush(this,Home);
+        NativeUtil.enter("com.rong.LoginActivity",null)
     }
     onPress(){
-        NativeUtil.enter("TestActivity",null)
+        Action.replacePush(this,Home);
     }
     render() {//
         return (

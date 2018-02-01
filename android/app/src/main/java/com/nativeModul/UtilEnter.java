@@ -74,7 +74,7 @@ public class UtilEnter extends ReactContextBaseJavaModule {
         if(null!=currentActivity){
             Class aimActivity = null;
             try {
-                aimActivity = Class.forName("com.chat_app."+text);
+                aimActivity = Class.forName(text);
                 Intent intent = new Intent(currentActivity,aimActivity);
                 if(props!=null){
                     intent.putExtra("props",Arguments.toBundle(props));

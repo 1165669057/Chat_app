@@ -13,7 +13,6 @@
         android:background="@color/mis_actionbar_color"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:minHeight="?android:attr/actionBarSize">
-
         <Button
             android:id="@+id/commit"
             android:background="@drawable/mis_action_btn"

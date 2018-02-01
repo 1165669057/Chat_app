@@ -26,11 +26,11 @@ class ModalExample extends Component {
         hiddenCallBack:()=>{}
     }
     componentWillReceiveProps(nextProps) {
-       if(nextProps.modalVisible!==this.state.modalVisible){
+      /* if(nextProps.modalVisible!==this.state.modalVisible){
               this.setState({
                   modalVisible:nextProps.modalVisible,
               })
-        }
+        }*/
     }
     constructor(props) {
         super(props);
@@ -51,9 +51,10 @@ class ModalExample extends Component {
         this.props.chooseFinish(false);
     }
     render() {
+
         return (
                 <Modal
-                    animationType={"slide"}
+                    animationType={"fade"}
                     transparent={true}
                     visible={this.state.modalVisible}
                     onRequestClose={() => {

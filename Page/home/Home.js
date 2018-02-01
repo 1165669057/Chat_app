@@ -27,8 +27,6 @@ export default class React_native extends Component {
         this.state = {
             modalVisible:false,
         }
-
-
     }
     componentWillReceiveProps() {
 
@@ -95,15 +93,12 @@ export default class React_native extends Component {
                        })
                     }}
                     >
-
                     <Login/>
-
                 </Modal>
             </View>
         );
     }
 }
-
 const styles = StyleSheet.create({
     toolbar:{
         backgroundColor:"#B93221",
