@@ -134,7 +134,6 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
                break;
         }
     }
-
     private void goToMain() {
         editor.putString("loginToken", loginToken);
         editor.putString(ChatConst.SEALTALK_LOGING_PHONE, phoneString);

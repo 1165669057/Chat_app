@@ -58,7 +58,9 @@ public class MainApplication extends Application implements ReactApplication {
   public void rongInit(Context context,String appKey){
      // RongPushClient.registerHWPush(this);//华为推送
       RongPushClient.registerMiPush(this, "2882303761517473625", "5451747338625");
+
       RongIM.init(context);
+
   }
   //判断是不是主进程
   public Boolean isAppMainProcess(){

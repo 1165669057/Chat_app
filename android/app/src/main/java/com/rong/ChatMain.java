@@ -72,7 +72,6 @@ public class ChatMain extends FragmentActivity implements
      */
     private ConversationListFragment mConversationListFragment = null;
     private Conversation.ConversationType[] mConversationsTypes = null;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,7 +86,6 @@ public class ChatMain extends FragmentActivity implements
         initMainViewPager();
         registerHomeKeyReceiver(mContext);
         //connect(token);
-
     }
     //连接融云
     private void connect(String token) {
@@ -182,7 +180,6 @@ public class ChatMain extends FragmentActivity implements
                 break;
         }
     }
-
     private void initMainViewPager() {
         //会话列表Fragment
         Fragment conversationList = initConversationList();
@@ -219,7 +216,7 @@ public class ChatMain extends FragmentActivity implements
             if (isDebug) {
                 uri=Uri.parse("rong://" + getApplicationInfo().packageName).buildUpon()
                         .appendPath("conversationlist")
-                        .appendQueryParameter(Conversation.ConversationType.PRIVATE.getName(), "true") //设置私聊会话是否聚合显示
+                        .appendQueryParameter(Conversation.ConversationType.PRIVATE.getName(), "false") //设置私聊会话是否聚合显示
                         .appendQueryParameter(Conversation.ConversationType.GROUP.getName(), "true")//群组
                         .appendQueryParameter(Conversation.ConversationType.PUBLIC_SERVICE.getName(), "false")//公共服务号
                         .appendQueryParameter(Conversation.ConversationType.APP_PUBLIC_SERVICE.getName(), "false")//订阅号

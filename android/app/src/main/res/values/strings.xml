@@ -117,11 +117,10 @@
     <string name="phone_number_is_null">手机号码为空</string>
     <string name="password_is_null">密码为空</string>
 
-    <string name="chat">会话</string>
+    <string name="chat">消息</string>
     <string name="contacts">书友</string>
     <string name="discover">发现</string>
-    <string name="me">我</string>
-
+    <string name="me">我的</string>
     <string name="clear_success">清除成功</string>
     <string name="layout_dialog_loading">正在加载</string>
     <string name="no_read_message">"···"</string>

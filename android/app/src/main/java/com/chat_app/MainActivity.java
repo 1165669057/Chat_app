@@ -13,7 +13,6 @@ public class MainActivity extends ImitationReactActivity {
     protected String getMainComponentName() {
         return "Chat_app";
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

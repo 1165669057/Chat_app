@@ -21,3 +21,4 @@ public class DiscoverFragment extends Fragment{
         return mView;
     }
 }
+

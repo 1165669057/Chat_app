@@ -50,6 +50,7 @@ public class StartActivity extends Activity{
     }
     //连接融云
     private void connect(String token) {
+
         RongIM.connect(token, new RongIMClient.ConnectCallback() {
             /**
              * Token 错误。可以从下面两点检查
