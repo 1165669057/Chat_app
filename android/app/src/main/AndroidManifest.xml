@@ -142,7 +142,7 @@
 
         </activity>
         <activity android:name=".ActionBarTest" />
-         <!-- 融云广播接收器 -->
+         <!-- 融云广播-->
         <receiver
             android:exported="true"
             android:name="com.rong.receiver.DemoNotificationReceiver">
@@ -204,9 +204,24 @@
         </receiver>
         <!-- 小米 配置结束 < -->
 
+      <!-- 测试服务开始 -->
         <service android:name="com.test.TestService"> </service>
-        <service android:name="com.test.BindService">
-        </service>
+        <service android:name="com.test.BindService"></service>
+        <service android:name="com.test.MyService"></service>
+        <service android:name="com.test.MyIntentService"></service>
+        <!-- 测试服务结束-->
+        <!-- 测试广播开始 -->
+          <receiver android:name="com.test.broadcastReceivers.ResponseReceiver">
+             <intent-filter android:priority="20">
+                  <action android:name="org.crazyit.action.CRAZY_BROADCAST"></action>
+             </intent-filter>
+          </receiver>
+          <receiver android:name="com.test.broadcastReceivers.ResponseReceiver2">
+              <intent-filter android:priority="0">
+                  <action android:name="org.crazyit.action.CRAZY_BROADCAST"/>
+              </intent-filter>
+          </receiver>
+        <!-- 测试广播结束 -->
      </application>
 
 </manifest>

@@ -10,7 +10,6 @@
          android:layout_margin="10dp"
          android:background="@drawable/mybtnshape"
          />
-
      <Button
          android:id="@+id/overBtn"
          android:layout_margin="10dp"
@@ -23,7 +22,7 @@
          android:id="@+id/bindBtn"
          android:layout_width="match_parent"
          android:layout_height="40dp"
-         android:text="start"
+         android:text="bindBtn"
          android:layout_margin="10dp"
          android:background="@drawable/mybtnshape"
          />
@@ -31,7 +30,31 @@
          android:id="@+id/unBindBtn"
          android:layout_width="match_parent"
          android:layout_height="40dp"
-         android:text="start"
+         android:text="unBindBtn"
+         android:layout_margin="10dp"
+         android:background="@drawable/mybtnshape"
+         />
+     <Button
+         android:id="@+id/statubtn"
+         android:layout_width="match_parent"
+         android:layout_height="40dp"
+         android:text="statubtn"
+         android:layout_margin="10dp"
+         android:background="@drawable/mybtnshape"
+         />
+     <Button
+         android:id="@+id/myServerButton"
+         android:layout_width="match_parent"
+         android:layout_height="40dp"
+         android:text="myServerButton"
+         android:layout_margin="10dp"
+         android:background="@drawable/mybtnshape"
+         />
+     <Button
+         android:id="@+id/myIntentServiceButton"
+         android:layout_width="match_parent"
+         android:layout_height="40dp"
+         android:text="myIntentServiceButton"
          android:layout_margin="10dp"
          android:background="@drawable/mybtnshape"
          />
