@@ -72,9 +72,7 @@ public class ContactsFragment extends Fragment implements ViewGroup.OnClickListe
         mIntent2 = new Intent(getActivity(), TestService.class);
         mIntent = new Intent(getActivity(), BindService.class);
         mIntent3= new Intent(getActivity(), MyService.class);
-
         mIntent4= new Intent(getActivity(), MyIntentService.class);
-
     }
     /**
      * Called when a view has been clicked.

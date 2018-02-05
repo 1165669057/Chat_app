@@ -18,4 +18,12 @@
            android:layout_margin="10dp"
            android:background="@drawable/mybtnshape"
            />
+       <Button
+           android:id="@+id/sendBtn3"
+           android:layout_width="match_parent"
+           android:layout_height="40dp"
+           android:text="TEST"
+           android:layout_margin="10dp"
+           android:background="@drawable/mybtnshape"
+           />
 </LinearLayout>
