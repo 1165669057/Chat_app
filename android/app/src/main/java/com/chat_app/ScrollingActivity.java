@@ -1,7 +1,10 @@
 package com.chat_app;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -29,42 +32,24 @@ public class ScrollingActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();*/
+               /*Intent result = new Intent(Intent.ACTION_VIEW,Uri.parse("rong://com.chat_app/push_message"));//
+                setResult(Activity.RESULT_OK);*/
+                Uri muri=Uri.parse("rong://com.chat_app/push_message");
+                Intent mIntentTo=new Intent(Intent.ACTION_VIEW,muri);
+                ScrollingActivity.this.setResult(Activity.RESULT_OK,mIntentTo);
+                finish();
             }
         });
-        mSp=getSharedPreferences("config", MODE_PRIVATE);
-        String token=mSp.getString("loginToken","");
-        connect(token);
+       initViewModule();
     }
-    private void connect(String token) {
-        RongIM.connect(token, new RongIMClient.ConnectCallback() {
-                /**
-                 * Token 错误。可以从下面两点检查
-                 * 1.  Token 是否过期，如果过期您需要向 App Server 重新请求一个新的 Token
-                 *  2.token 对应的 appKey 和工程里设置的 appKey 是否一致
-                 */
-                @Override
-                public void onTokenIncorrect() {
-                    Log.e("MMMMMMMMMMMMMMMMMMMM","Token 错误。");
-                }
-                /**
-                 * 连接融云成功
-                 * @param userid 当前 token 对应的用户 id
-                 */
-                @Override
-                public void onSuccess(String userid) {
-                    Log.e("AAAAAAAAAAAAAAAAAAA",userid);
-                }
-                /**
-                 * 连接融云失败
-                 * @param errorCode 错误码，可到官网 查看错误码对应的注释
-                 */
-                @Override
-                public void onError(RongIMClient.ErrorCode errorCode) {
-                    Log.e("BBBBBBBBBBBBBBBB",errorCode.toString()+"");
-                }
-            });
-        }
+    private void initViewModule() {
+        Intent mIntent=getIntent();
+        Uri muri=mIntent.getData();
+        String url=mIntent.getDataString();
+        Log.e("<<<<<<<<<<<<<",url);
+    }
+
 
 }

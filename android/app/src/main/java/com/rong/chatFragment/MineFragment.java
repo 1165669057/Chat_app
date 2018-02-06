@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.icu.util.Calendar;
+import android.icu.util.ULocale;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,16 +24,20 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.chat_app.R;
+import com.rong.ChatMain;
 import com.rong.utils.NToast;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+
+import io.rong.imlib.model.Conversation;
 
 /**
  * Created by Administrator on 2018/1/31.
  */
 public class MineFragment extends Fragment implements ViewGroup.OnClickListener{
-    private Button testCall,email,calendar,map,chooser,contact;
+    private Button testCall,email,calendar,map,chooser,contact,enterNext;
     private View mView;
     private static final int PICK_CONTACT_REQUEST=1000;
     @Nullable
@@ -48,6 +54,8 @@ public class MineFragment extends Fragment implements ViewGroup.OnClickListener{
         map=mView.findViewById(R.id.map);
         chooser=mView.findViewById(R.id.chooser);
         contact=mView.findViewById(R.id.contact);
+        enterNext=mView.findViewById(R.id.enterNext);
+        enterNext.setOnClickListener(this);
         email.setOnClickListener(this);
         map.setOnClickListener(this);
         contact.setOnClickListener(this);
@@ -105,13 +113,34 @@ public class MineFragment extends Fragment implements ViewGroup.OnClickListener{
                 pickContactIntent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
                 startActivityForResult(pickContactIntent,PICK_CONTACT_REQUEST);
                 break;
+            case R.id.enterNext:
+                 //隐式跳转，安卓组件内通信，
+                //一般来说 ，service 和Activity 都有生命周期，它们是在同一进程内的，
+                // 通过intent 传值,广播负责注册和接收，
+                //它有独立的进程，主要负责
+                String hashName=Conversation.ConversationType.PRIVATE.getName();
+                Intent mIntentTo=new Intent(Intent.ACTION_VIEW);
+                Uri muri=Uri.parse("test://com.chat_app").buildUpon().
+                         appendPath("mainshow")
+                           .appendQueryParameter("targetId", "1001")
+                    .appendQueryParameter("title", "test").build();
+                mIntentTo.setData(muri);
+                //判断隐式跳转，是否有Activity响应
+                if (mIntentTo.resolveActivity(getActivity().getPackageManager()) != null)
+                {
+                    startActivityForResult(mIntentTo,500);
+                }
+
+                break;
         }
     }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_CONTACT_REQUEST) {
+        if (resultCode == getActivity().RESULT_OK&&requestCode==500) {
+            NToast.showToast(getActivity(),data.getDataString(),Toast.LENGTH_LONG);
+        }
+        if (requestCode == 6000){
             // Make sure the request was successful
             if (resultCode == getActivity().RESULT_OK) {
                 Uri  contactUri=data.getData();

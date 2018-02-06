@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chat_app.R;
 import com.rong.chatAdapter.ConversationListAdapterEx;
@@ -214,7 +215,7 @@ public class ChatMain extends FragmentActivity implements
             listFragment.setAdapter(new ConversationListAdapterEx(RongContext.getInstance()));
             Uri uri;
             if (isDebug) {
-                uri=Uri.parse("rong://" + getApplicationInfo().packageName).buildUpon()
+                uri=Uri.parse("test://" + getApplicationInfo().packageName).buildUpon()
                         .appendPath("conversationlist")
                         .appendQueryParameter(Conversation.ConversationType.PRIVATE.getName(), "false") //设置私聊会话是否聚合显示
                         .appendQueryParameter(Conversation.ConversationType.GROUP.getName(), "true")//群组
@@ -483,4 +484,6 @@ public class ChatMain extends FragmentActivity implements
             }
         }
     }
+
+
 }
