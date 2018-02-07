@@ -17,6 +17,7 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -26,7 +27,9 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.chat_app.ImitationReactActivity;
 import com.chat_app.R;
+import com.facebook.react.ReactRootView;
 import com.rong.chatAdapter.ConversationListAdapterEx;
 import com.rong.chatFragment.ContactsFragment;
 import com.rong.chatFragment.DiscoverFragment;
@@ -48,7 +51,7 @@ import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import io.rong.message.ContactNotificationMessage;
 /**
- * Created by Administrator on 2018/1/31.
+ * Created by Administrator on 2018/1/31. //FragmentActivity
  */
 public class ChatMain extends FragmentActivity implements
         ViewPager.OnPageChangeListener,View.OnClickListener,DragPointView.OnDragListencer ,
@@ -57,6 +60,8 @@ public class ChatMain extends FragmentActivity implements
     private List<Fragment> mFragment=new ArrayList<>();
     FragmentTabHost tab;
     private boolean isDebug;
+    LayoutInflater inflater;
+
     private DragPointView mUnreadNumView;//小圆点
     //导航变化图片
     private ImageView moreImage, mImageChats, mImageContact, mImageFind, mImageMe, mMineRed;
@@ -76,7 +81,7 @@ public class ChatMain extends FragmentActivity implements
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chatmain);
+         setContentView(R.layout.activity_chatmain);
         mContext=this;
         mSp=getSharedPreferences("config", MODE_PRIVATE);
         String token=mSp.getString("loginToken","");
@@ -120,17 +125,17 @@ public class ChatMain extends FragmentActivity implements
     }
     //初始化
     private void initViews() {
-        RelativeLayout chatRLayout = (RelativeLayout) findViewById(R.id.seal_chat);
+        RelativeLayout chatRLayout = (RelativeLayout)findViewById(R.id.seal_chat);
         RelativeLayout contactRLayout = (RelativeLayout) findViewById(R.id.seal_contact_list);
         RelativeLayout foundRLayout = (RelativeLayout) findViewById(R.id.seal_find);
-        RelativeLayout mineRLayout = (RelativeLayout) findViewById(R.id.seal_me);
-        mImageChats = (ImageView) findViewById(R.id.tab_img_chats);
-        mImageContact = (ImageView) findViewById(R.id.tab_img_contact);
-        mImageFind = (ImageView) findViewById(R.id.tab_img_find);
-        mImageMe = (ImageView) findViewById(R.id.tab_img_me);
-        mTextChats = (TextView) findViewById(R.id.tab_text_chats);
-        mTextContact = (TextView) findViewById(R.id.tab_text_contact);
-        mTextFind = (TextView) findViewById(R.id.tab_text_find);
+        RelativeLayout mineRLayout = (RelativeLayout)findViewById(R.id.seal_me);
+        mImageChats = (ImageView)findViewById(R.id.tab_img_chats);
+        mImageContact = (ImageView)findViewById(R.id.tab_img_contact);
+        mImageFind = (ImageView)findViewById(R.id.tab_img_find);
+        mImageMe = (ImageView)findViewById(R.id.tab_img_me);
+        mTextChats = (TextView)findViewById(R.id.tab_text_chats);
+        mTextContact = (TextView)findViewById(R.id.tab_text_contact);
+        mTextFind = (TextView)findViewById(R.id.tab_text_find);
         mTextMe = (TextView) findViewById(R.id.tab_text_me);
         mMineRed = (ImageView) findViewById(R.id.mine_red);
         //moreImage = (ImageView) findViewById(R.id.seal_more);
@@ -185,12 +190,12 @@ public class ChatMain extends FragmentActivity implements
         //会话列表Fragment
         Fragment conversationList = initConversationList();
         //ViewPage
-        mViewPager = (ViewPager) findViewById(R.id.mainViewPage);
-        mUnreadNumView = (DragPointView) findViewById(R.id.seal_num);
+        mViewPager = (ViewPager)findViewById(R.id.mainViewPage);
+        mUnreadNumView = (DragPointView)findViewById(R.id.seal_num);
         mUnreadNumView.setOnClickListener(this);
         mUnreadNumView.setDragListencer(this);
         mFragment.add(conversationList);
-        mFragment.add(new ContactsFragment());
+        mFragment.add(new ContactsFragment("ContactsFragment",this));
         mFragment.add(new DiscoverFragment());
         mFragment.add(new MineFragment());
         FragmentPagerAdapter fragmentPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
@@ -395,7 +400,7 @@ public class ChatMain extends FragmentActivity implements
         }
     }
     @Override
-    protected void onNewIntent(Intent intent) {
+    public void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         if (intent.getBooleanExtra("systemconversation", false)) {
             mViewPager.setCurrentItem(0, false);
@@ -430,7 +435,6 @@ public class ChatMain extends FragmentActivity implements
             }
         }, mConversationsTypes);
     }
-
     @Override
     public void onCountChanged(int count) {//消息数量变化时 清除count
         if (count == 0) {
@@ -452,7 +456,6 @@ public class ChatMain extends FragmentActivity implements
         }
         return super.onTouchEvent(event);
     }
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -462,7 +465,6 @@ public class ChatMain extends FragmentActivity implements
         }
         return super.onKeyDown(keyCode, event);
     }
-
     @Override
     protected void onDestroy() {
         RongIM.getInstance().removeUnReadMessageCountChangedObserver(this);
@@ -470,8 +472,8 @@ public class ChatMain extends FragmentActivity implements
             this.unregisterReceiver(mHomeKeyReceiver);
         super.onDestroy();
     }
-    private HomeWatcherReceiver mHomeKeyReceiver = null;
 
+    private HomeWatcherReceiver mHomeKeyReceiver = null;
     //如果遇见 Android 7.0 系统切换到后台回来无效的情况 把下面注册广播相关代码注释或者删除即可解决。下面广播重写 home 键是为了解决三星 note3 按 home 键花屏的一个问题
     private void registerHomeKeyReceiver(Context context) {
         if (mHomeKeyReceiver == null) {
@@ -484,6 +486,15 @@ public class ChatMain extends FragmentActivity implements
             }
         }
     }
-
-
+    public interface KeyUpListen{
+         boolean onKeyUp(int keyCode, KeyEvent event);
+    }
+    private KeyUpListen keyUpListen;
+    public void setKeyUpListener(KeyUpListen listen){
+        this.keyUpListen=listen;
+    }
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        return this.keyUpListen.onKeyUp(keyCode, event); //super.onKeyUp(keyCode, event);
+    }
 }

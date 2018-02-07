@@ -25,9 +25,7 @@ import com.facebook.react.modules.core.PermissionAwareActivity;
 import com.facebook.react.modules.core.PermissionListener;
 import com.nativeModul.RNImagePicker;
 import com.nativeModul.RNMultiImagePicker;
-
 import javax.annotation.Nullable;
-
 /**
  * Base Activity for React Native applications.
  */
@@ -39,6 +37,9 @@ public abstract class ImitationReactActivity extends FragmentActivity
     private final ImitationReactActivityDelegate mDelegate;
     protected ImitationReactActivity() {
         mDelegate = createReactActivityDelegate();
+    }
+   public ImitationReactActivityDelegate getMdelegate(){
+         return mDelegate;
     }
     public interface PermissionCallback {
         public void onPermissionResult(String[] permissions, int[] grantResults);

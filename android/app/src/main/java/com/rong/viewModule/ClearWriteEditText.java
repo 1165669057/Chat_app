@@ -41,7 +41,6 @@ public class ClearWriteEditText extends EditText implements View.OnFocusChangeLi
         super(context, attrs, defStyleAttr);
         init();
     }
-
     private void init() {
         mClearDrawable = getResources().getDrawable(R.drawable.search_clear_pressed_write);
         mClearDrawable.setBounds(0, 0, mClearDrawable.getIntrinsicWidth(), mClearDrawable.getIntrinsicHeight());
@@ -49,7 +48,6 @@ public class ClearWriteEditText extends EditText implements View.OnFocusChangeLi
         this.setOnFocusChangeListener(this);
         this.addTextChangedListener(this);
     }
-
     /**
      * 当输入框里面内容发生变化的时候回调的方法
      */

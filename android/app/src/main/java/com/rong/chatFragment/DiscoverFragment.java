@@ -60,6 +60,7 @@ public class DiscoverFragment extends Fragment implements ViewGroup.OnClickListe
      * Called when a view has been clicked.
      *
      * @param v The view that was clicked.
+     *
      */
     @Override
     public void onClick(View v) {

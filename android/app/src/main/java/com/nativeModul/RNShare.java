@@ -110,5 +110,4 @@ public class RNShare extends ReactContextBaseJavaModule {
             shareCallback.invoke(shareType,SHARE_GIVEUP);
         }
     };
-
 }

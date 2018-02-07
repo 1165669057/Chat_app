@@ -244,3 +244,4 @@ class StartApp extends Component{
 }
 AppRegistry.registerComponent('Chat_app', () => StartApp);
 AppRegistry.registerComponent('TestActivity', () => Main);
+AppRegistry.registerComponent('ContactsFragment', () => StartApp);

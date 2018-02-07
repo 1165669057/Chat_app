@@ -1,6 +1,4 @@
-package com.chat_app;
-
-// Copyright 2004-present Facebook. All Rights Reserved.
+package com.rong.chatFragment;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -16,9 +14,7 @@ import android.widget.Toast;
 
 import com.facebook.common.logging.FLog;
 import com.facebook.infer.annotation.Assertions;
-import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactApplication;
-import com.facebook.react.ReactFragmentActivity;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactRootView;
@@ -27,38 +23,11 @@ import com.facebook.react.common.ReactConstants;
 import com.facebook.react.devsupport.DoubleTapReloadRecognizer;
 import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler;
 import com.facebook.react.modules.core.PermissionListener;
-
 import javax.annotation.Nullable;
-
-
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Bundle;
-import android.provider.Settings;
-import android.support.v4.app.FragmentActivity;
-import android.view.KeyEvent;
-import android.widget.Toast;
-
-import com.facebook.common.logging.FLog;
-import com.facebook.infer.annotation.Assertions;
-import com.facebook.react.bridge.Callback;
-import com.facebook.react.common.ReactConstants;
-import com.facebook.react.devsupport.DoubleTapReloadRecognizer;
-import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler;
-import com.facebook.react.modules.core.PermissionListener;
-
-import javax.annotation.Nullable;
-
 /**
- * Delegate class for {@link ReactActivity} and {@link ReactFragmentActivity}. You can subclass this
- * to provide custom implementations for e.g. {@link #getReactNativeHost()}, if your Application
- * class doesn't implement {@link ReactApplication}.
+ * Created by Administrator on 2018/2/7.
  */
-public class ImitationReactActivityDelegate {
+public class ImitationFragmentDelegate {
     private final int REQUEST_OVERLAY_PERMISSION_CODE = 1111;
     private static final String REDBOX_PERMISSION_GRANTED_MESSAGE =
             "Overlay permissions have been granted.";
@@ -79,13 +48,14 @@ public class ImitationReactActivityDelegate {
     PermissionListener mPermissionListener;
     private @Nullable
     Callback mPermissionsCallback;
-    private @Nullable Bundle mBundle;
-    public ImitationReactActivityDelegate(Activity activity, @Nullable String mainComponentName) {
+    private @Nullable
+    Bundle mBundle;
+    public ImitationFragmentDelegate(Activity activity, @Nullable String mainComponentName) {
         mActivity = activity;
         mMainComponentName = mainComponentName;
         mFragmentActivity = null;
     }
-    public ImitationReactActivityDelegate(
+    public ImitationFragmentDelegate(
             FragmentActivity fragmentActivity,
             @Nullable String mainComponentName) {
         mFragmentActivity = fragmentActivity;
@@ -114,7 +84,6 @@ public class ImitationReactActivityDelegate {
     public ReactNativeHost getReactNativeHost() {
         return ((ReactApplication) getPlainActivity().getApplication()).getReactNativeHost();
     }
-
     public ReactInstanceManager getReactInstanceManager() {
         return getReactNativeHost().getReactInstanceManager();
     }
@@ -146,19 +115,19 @@ public class ImitationReactActivityDelegate {
                 getReactNativeHost().getReactInstanceManager(),
                 appKey,
                 mBundle );//getLaunchOptions()
-        getPlainActivity().setContentView(mReactRootView);
+       // getPlainActivity().setContentView(mReactRootView);
+
     }
     public void onPause() {
         if (getReactNativeHost().hasInstance()) {
             getReactNativeHost().getReactInstanceManager().onHostPause(getPlainActivity());
         }
     }
-
-    public void onResume() {
+    public void onResume(ContactsFragment fragment) {
         if (getReactNativeHost().hasInstance()) {
             getReactNativeHost().getReactInstanceManager().onHostResume(
                     getPlainActivity(),
-                    (DefaultHardwareBackBtnHandler) getPlainActivity());
+                    (DefaultHardwareBackBtnHandler)fragment);
         }
 
         if (mPermissionsCallback != null) {
@@ -166,7 +135,6 @@ public class ImitationReactActivityDelegate {
             mPermissionsCallback = null;
         }
     }
-
     public void onDestroy() {
         if (mReactRootView != null) {
             mReactRootView.unmountReactApplication();
@@ -176,7 +144,6 @@ public class ImitationReactActivityDelegate {
             getReactNativeHost().getReactInstanceManager().onHostDestroy(getPlainActivity());
         }
     }
-
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (getReactNativeHost().hasInstance()) {
             getReactNativeHost().getReactInstanceManager()

@@ -1,5 +1,6 @@
 package com.rong.chatFragment;
 
+import android.content.CursorLoader;
 import android.content.Intent;
 
 import android.content.pm.PackageManager;
@@ -109,8 +110,10 @@ public class MineFragment extends Fragment implements ViewGroup.OnClickListener{
                 startActivity(chooser);
                 break;
             case R.id.contact:
+                //Intent pickContactIntent=new Intent(Intent.ACTION_GET_CONTENT);
                 Intent pickContactIntent=new Intent(Intent.ACTION_PICK,Uri.parse("content://contacts"));
                 pickContactIntent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
+               //pickContactIntent.setType("vnd.android.cursor.item/phone");
                 startActivityForResult(pickContactIntent,PICK_CONTACT_REQUEST);
                 break;
             case R.id.enterNext:
@@ -130,7 +133,6 @@ public class MineFragment extends Fragment implements ViewGroup.OnClickListener{
                 {
                     startActivityForResult(mIntentTo,500);
                 }
-
                 break;
         }
     }
@@ -140,22 +142,35 @@ public class MineFragment extends Fragment implements ViewGroup.OnClickListener{
         if (resultCode == getActivity().RESULT_OK&&requestCode==500) {
             NToast.showToast(getActivity(),data.getDataString(),Toast.LENGTH_LONG);
         }
-        if (requestCode == 6000){
+
+        if (requestCode == PICK_CONTACT_REQUEST){
             // Make sure the request was successful
             if (resultCode == getActivity().RESULT_OK) {
-                Uri  contactUri=data.getData();
-                String[] projection={
-                        ContactsContract.CommonDataKinds.Phone.NUMBER
-                };
-                //得到游标
-                Cursor cursor = getActivity().getContentResolver()
-                        .query(contactUri, projection, null, null, null);
-                //将游标移到第一行。
-                cursor.moveToFirst();
-                // Retrieve the phone number from the NUMBER column
-                int column = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
-                String number = cursor.getString(column);//数组越界
-                NToast.showToast(getActivity(),number, Toast.LENGTH_LONG);
+                //get the return data
+                Uri contactData=data.getData();
+                NToast.showToast(getActivity(), data.getDataString(), Toast.LENGTH_LONG);
+                CursorLoader cursorLoader=new CursorLoader(getActivity(),contactData,null,null,null,null);
+                // query the info about contact
+                Cursor cursor =cursorLoader.loadInBackground();
+                if(cursor.moveToFirst()){
+                    String contactId=cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
+                    String name=cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME));
+                    //  query the  detail info
+                    Cursor phones=getActivity().getContentResolver().query(
+                            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                            null,
+                            ContactsContract.CommonDataKinds.Phone.CONTACT_ID+"="+
+                                    contactId,null,null
+                    );
+                    String phoneNumber="null";
+                    if(phones.moveToFirst()){
+                            //get the phoneNumber
+                        phoneNumber =phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                    }
+                    phones.close();
+                    NToast.showToast(getActivity(),name+"-"+phoneNumber, Toast.LENGTH_LONG);
+                }
+                cursor.close();
             }
         }
     }

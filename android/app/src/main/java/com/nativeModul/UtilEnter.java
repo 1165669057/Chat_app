@@ -67,6 +67,7 @@ public class UtilEnter extends ReactContextBaseJavaModule {
     public String getName() {
         return NATIVE_TAG;
     }
+
     @ReactMethod
     public void enter(String text,ReadableMap props){
         //Toast.makeText(getReactApplicationContext(), text, Toast.LENGTH_SHORT).show();

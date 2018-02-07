@@ -63,7 +63,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
         forgetPassword.setOnClickListener(this);
         mConfirm.setOnClickListener(this);
         mRegister.setOnClickListener(this);
-        mImg_Background = (ImageView) findViewById(R.id.de_img_backgroud);
+        mImg_Background=(ImageView) findViewById(R.id.de_img_backgroud);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -74,7 +74,6 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
         mPhoneEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -93,7 +92,6 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
             mPhoneEdit.setText(oldPhone);
             mPasswordEdit.setText(oldPassword);
         }
-
         if (getIntent().getBooleanExtra("kickedByOtherClient", false)) {
             final AlertDialog dlg = new AlertDialog.Builder(LoginActivity.this).create();
             dlg.show();
