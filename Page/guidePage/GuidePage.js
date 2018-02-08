@@ -23,7 +23,8 @@ import {
 import{
     NativeUtil
     }from "../../NativeModule"
- var Home=require("../home/Home")
+ var Home=require("../home/Home");
+var Login=require("../login/Login");
 var {height, width} = Dimensions.get('window');
 export default class React_native extends Component {
     constructor(props) {
@@ -49,8 +50,10 @@ export default class React_native extends Component {
     componentWillUnmount() {
 
     }
+
     fastLogin(){
-        NativeUtil.enter("com.rong.LoginActivity",null)
+       // NativeUtil.enter("com.rong.LoginActivity",null)
+        Action.replacePush(this,Login);
     }
     onPress(){
         Action.replacePush(this,Home);

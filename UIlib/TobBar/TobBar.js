@@ -16,12 +16,14 @@ import {
 export default class React_native extends Component {
     static propTypes = {
         middletext: PropTypes.any,
-        backImage:PropTypes.any
+        backImage:PropTypes.any,
+        bgcolor:PropTypes.any
     }
 
     static defaultProps = {
         middletext: "",
-        backImage:()=>{}
+        backImage:()=>{},
+        bgcolor:"#FA662D",
     }
 
     constructor(props) {
@@ -45,7 +47,7 @@ export default class React_native extends Component {
     }
     render() {
         return (
-            <View style={styles.container}>
+            <View style={[styles.container,{ backgroundColor:this.props.bgcolor}]}>
                     <TouchableHighlight
                         underlayColor="#00000000"
                         style={{flex:1,paddingLeft:10}}
@@ -67,9 +69,8 @@ export default class React_native extends Component {
 const styles = StyleSheet.create({
     container: {
         height:45,
-
         alignItems: 'center',
-        backgroundColor:"#FA662D",
+
         flexDirection:"row",
     },
     middle_font: {

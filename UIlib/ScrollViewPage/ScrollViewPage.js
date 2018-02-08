@@ -68,7 +68,7 @@ export default class React_native extends Component {
     componentDidMount(){
         this.setState({
             images:this.props.titles
-        })
+        });
     }
     componentWillUnmount() {
         this.childPage=[];
