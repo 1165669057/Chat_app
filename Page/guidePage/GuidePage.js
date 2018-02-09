@@ -26,6 +26,7 @@ import{
  var Home=require("../home/Home");
 var Login=require("../login/Login");
 var {height, width} = Dimensions.get('window');
+
 export default class React_native extends Component {
     constructor(props) {
         super(props);
@@ -34,7 +35,7 @@ export default class React_native extends Component {
             textColor:"#03A9F4"
         }
         this.imgs=[
-            require('./img/bg_intro_1.png'),
+             require('./img/bg_intro_1.png'),
              require('./img/bg_intro_2.png')
             ]
     }
@@ -53,7 +54,8 @@ export default class React_native extends Component {
 
     fastLogin(){
        // NativeUtil.enter("com.rong.LoginActivity",null)
-        Action.replacePush(this,Login);
+       Action.replacePush(this,Login);
+
     }
     onPress(){
         Action.replacePush(this,Home);

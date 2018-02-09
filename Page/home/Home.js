@@ -17,6 +17,9 @@ import {
 import {
     ScrollViewPage
     } from '../../UIlib';
+import{
+    storeManger
+    }from '../SingleStoreSocket';
 var Go_afterBook=require('./Go_afterBook');//追书
 var Community=require('./Community');//社区
 var Discover=require('./Discover');//发现
@@ -35,9 +38,8 @@ export default class React_native extends Component {
     componentWillMount() {
 
     }
-
     componentDidMount() {
-
+        //this.props.storeManger.getSysterMessage( this.props.storeManger.socket);
     }
 
     componentWillUnmount() {
@@ -83,6 +85,7 @@ export default class React_native extends Component {
                     scrollPage={(index,obj)=>{}}
                     pageViews={[Go_afterBook,Community,Discover]}
                     />
+                <Text>{this.props.result}</Text>
                 <Modal
                     animationType={"slide"}
                     transparent={true}

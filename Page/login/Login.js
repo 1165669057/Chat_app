@@ -4,14 +4,15 @@
  * @flow
  */
 import React, { Component } from 'react';
-var IO=require('socket.io-client');
+
 import {
     AppRegistry,
     StyleSheet,
     Text,
     View,
     TextInput,
-    ToastAndroid
+    ToastAndroid,
+    ActivityIndicator
     } from 'react-native';
 import {
     Color,
@@ -20,50 +21,69 @@ import {
     AddressList,
     Button,
     CarouselPage,
-    TobBar
+    TobBar,
+    ModalDialog
     } from '../../UIlib';
+import{
+    NativeUtil
+    }from "../../NativeModule"
+
+import{
+    storeManger
+    }from '../SingleStoreSocket';
+
+import {
+    GuidePage,
+    Main,
+    Home,
+    }from '../index.js';
+
 export default class React_native extends Component {
     constructor(props) {
         super(props);
         this.state = {
             uname:"",
             pwd:"",
+            animating:true,
+            modalVisible:false,
         }
     }
-
     componentWillReceiveProps() {
 
-
     }
-
     componentWillMount() {
-
     }
-
     componentDidMount() {
-
     }
     componentWillUnmount() {//
-
     }
-    loginFetch(){
+    loginFetch(obj){
+        this.refs["Modal"].setModalVisible(true);
         var url='http://172.16.20.252:8085/doLogin';
         var formData = new FormData();
         formData.append("uname",this.state.uname);
         formData.append("upwd",this.state.pwd);
-        ToastAndroid.show(JSON.stringify(formData),ToastAndroid.LONG);
              fetch(url,{
                  method: 'POST',
-                 headers: {"Accept":"text/json"},
                  body: formData,})
             .then((response)=>response.json())
             .then((responseText)=>{
-                ToastAndroid.show(JSON.stringify(responseText),ToastAndroid.LONG);
+                     this.refs["Modal"].setModalVisible(false);
+                     storeManger.messageLogin(responseText.data.uname,responseText.data.id);
+                  Action.replacePush(obj,Home,{result:JSON.stringify(responseText),storeManger:storeManger});
+
             }).catch((error)=>{
                ToastAndroid.show(error+"--",ToastAndroid.LONG);
             });
     }
     backImage(){
+    }
+    loading(){
+        return (
+            <View >
+               <Text>正在加载中.....</Text>
+            </View>
+        )
     }
     render() {
         return (
@@ -80,8 +100,8 @@ export default class React_native extends Component {
                             style={{fontSize:FontSize.font_main}}
                             onChangeText={(text)=>{
                          this.setState({
-                         uname:text
-                        })
+                           uname:text
+                        });
                     }}
                             underlineColorAndroid="transparent"
                             value={this.state.uname}
@@ -110,9 +130,17 @@ export default class React_native extends Component {
                     style={styles.sty}
                     isWithOutLine={false}
                     onPress={()=>{
-                          this.loginFetch();
+                          this.loginFetch(this);
                      }}
                     children={"login"}
+                    />
+                <ModalDialog
+                    ref="Modal"
+                    background={"#0000004f"}
+                    childView={this.loading()}
+                    chooseFinish={(stu)=>{
+                    }}
+                    modalVisible={this.state.modalVisible}
                     />
             </View>
         );
@@ -120,6 +148,11 @@ export default class React_native extends Component {
 }
 
 const styles = StyleSheet.create({
+    centering: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 8,
+    },
     line:{
         height:0.5,
         backgroundColor:"#cccccc",

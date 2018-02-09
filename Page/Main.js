@@ -21,14 +21,12 @@ import {
     ComplexList,
     } from '../UIlib';
 var GuidePage=require('./guidePage/GuidePage');
-export default class React_native extends Component {
+ class React_native extends Component {
     constructor(props) {
         super(props);
         this.state = {}
     }
-
     componentWillReceiveProps() {
-
 
     }
 
@@ -71,5 +69,5 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
 });
-
-AppRegistry.registerComponent('MyTestProject', () => React_native);
+module.exports=React_native;
+//AppRegistry.registerComponent('MyTestProject', () => React_native);
