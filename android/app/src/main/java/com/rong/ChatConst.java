@@ -4,6 +4,7 @@ package com.rong;
  * Created by Administrator on 2018/1/30.
  */
 public class ChatConst {
+
     public static String[] users={
          "1000","1001","1002"
     };

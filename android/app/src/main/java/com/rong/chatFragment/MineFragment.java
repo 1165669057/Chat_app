@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.chat_app.R;
 import com.rong.ChatMain;
 import com.rong.utils.NToast;
+import com.test.UiTest;
 
 import java.util.Date;
 import java.util.List;
@@ -103,11 +104,8 @@ public class MineFragment extends Fragment implements ViewGroup.OnClickListener{
                 }
                 break;
             case R.id.chooser:
-                Intent intent = new Intent(Intent.ACTION_SEND);
-                String title ="share"; //getResources().getText(R.string.chooser_title);
-                    // Create and start the chooser
-                Intent chooser = Intent.createChooser(intent, title);
-                startActivity(chooser);
+                Intent intentAlert=new Intent(getActivity(), UiTest.class);
+                startActivity(intentAlert);
                 break;
             case R.id.contact:
                 //Intent pickContactIntent=new Intent(Intent.ACTION_GET_CONTENT);
@@ -116,6 +114,7 @@ public class MineFragment extends Fragment implements ViewGroup.OnClickListener{
                //pickContactIntent.setType("vnd.android.cursor.item/phone");
                 startActivityForResult(pickContactIntent,PICK_CONTACT_REQUEST);
                 break;
+
             case R.id.enterNext:
                  //隐式跳转，安卓组件内通信，
                 //一般来说 ，service 和Activity 都有生命周期，它们是在同一进程内的，
@@ -133,6 +132,7 @@ public class MineFragment extends Fragment implements ViewGroup.OnClickListener{
                 {
                     startActivityForResult(mIntentTo,500);
                 }
+
                 break;
         }
     }

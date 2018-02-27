@@ -140,5 +140,4 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
         startActivity(new Intent(LoginActivity.this, ChatMain.class));
         finish();
     }
-
 }

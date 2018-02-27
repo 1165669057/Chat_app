@@ -36,6 +36,9 @@
             android:windowSoftInputMode="adjustResize">
 
         </activity>
+        <activity android:name="com.test.UiTest">
+
+        </activity>
         <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
         <!--启动页-->
         <activity android:name="com.rong.StartActivity">
@@ -227,7 +230,6 @@
                   <action android:name="org.crazyit.action.CRAZY_BROADCAST"/>
               </intent-filter>
           </receiver>
-
         <!-- 测试广播结束 -->
      </application>
 </manifest>

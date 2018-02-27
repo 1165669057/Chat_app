@@ -1,6 +1,6 @@
 const config = {
     'localhost': {
-        server: 'http://172.16.20.252:8085'
+        server: 'http://172.16.20.253:8085'
     },
     'devhost':{
         server: ''

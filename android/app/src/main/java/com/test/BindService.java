@@ -28,7 +28,6 @@ public class BindService extends Service{
         public int getCount(){
             return count;
         }
-
     }
     /**
      * Return the communication channel to the service.  May return null if
@@ -80,7 +79,6 @@ public class BindService extends Service{
     public boolean onUnbind(Intent intent) {
         //Service 被断开连接
         Log.e(">>>>>>>>>","Service is unBinded");
-
         return true;
     }
     @Override

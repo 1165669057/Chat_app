@@ -12,15 +12,17 @@ import {
     ToastAndroid
     } from 'react-native';
 var config=require('../config');
+
  class StoreManger{
     constructor(socketObj:Object){
-       this.socket=socketObj;
+       // ToastAndroid.show(socketObj+"进入",ToastAndroid.LONG);
+       this.socket=socketObj.socket;
     }
     messageLogin(uname,userid){
         this.socket.emit('login',uname);
-        /*this.socket.on('system',(msg)=>{
+        this.socket.on('system',(msg)=>{
             ToastAndroid.show(msg.newUser+"进入",ToastAndroid.LONG);
-        });*/
+        });
     }
     getSysterMessage(){//得到系统消息
 

@@ -190,8 +190,7 @@ public class ContactsFragment extends Fragment implements ViewGroup.OnClickListe
     }
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
-        return mDelegate.onKeyUp(keyCode, event) ;//|| super.onKeyUp(keyCode, event);;
-
+        return mDelegate.onKeyUp(keyCode, event) ;//|| super.onKeyUp(keyCode, event);
     }
 
     public interface PermissionCallback {

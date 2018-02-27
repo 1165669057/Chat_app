@@ -56,10 +56,11 @@ export default class React_native extends Component {
     componentDidMount() {
     }
     componentWillUnmount() {//
+
     }
     loginFetch(obj){
         this.refs["Modal"].setModalVisible(true);
-        var url='http://172.16.20.252:8085/doLogin';
+        var url='http://172.16.20.253:8085/doLogin';
         var formData = new FormData();
         formData.append("uname",this.state.uname);
         formData.append("upwd",this.state.pwd);
@@ -68,16 +69,17 @@ export default class React_native extends Component {
                  body: formData,})
             .then((response)=>response.json())
             .then((responseText)=>{
-                     this.refs["Modal"].setModalVisible(false);
-                     storeManger.messageLogin(responseText.data.uname,responseText.data.id);
+                  this.refs["Modal"].setModalVisible(false);
+                  storeManger.messageLogin(responseText.data.uname,responseText.data.id);
                   Action.replacePush(obj,Home,{result:JSON.stringify(responseText),storeManger:storeManger});
-
             }).catch((error)=>{
-               ToastAndroid.show(error+"--",ToastAndroid.LONG);
+                 ToastAndroid.show(error+"--",ToastAndroid.LONG);
             });
     }
+
     backImage(){
     }
+
     loading(){
         return (
             <View >
