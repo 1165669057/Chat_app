@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowId;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -32,7 +33,6 @@ public class MyAdapter extends BaseAdapter{
     public int getCount() {
         return mList.size();
     }
-
     /**
      * Get the data item associated with the specified position in the data set.
      *
@@ -55,7 +55,6 @@ public class MyAdapter extends BaseAdapter{
     public long getItemId(int position) {
         return position;
     }
-
     /**
      * Get a View that displays the data at the specified position in the data set. You can either
      * create a View manually or inflate it from an XML layout file. When the View is inflated, the
@@ -80,7 +79,6 @@ public class MyAdapter extends BaseAdapter{
         if(convertView==null){
             //convertView=LayoutInflater.from(context).inflate();
             dataBean=new DataBean();
-          
         }
         return null;
     }
